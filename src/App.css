@@ -1,38 +1,72 @@
-.App {
-  text-align: center;
+*{
+    margin:0px;
+    padding:0px
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.root{
+    width:100vw;
+    height:100vh;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.todoBox{
+    width:60vw;
+    height:60vh;
+    border: 2px solid black;
+    --border: 2px solid black;
+
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+    
+    grid-gap:10px 20px;
+
+    margin-top:10vh;
+
+    padding-left:20px;
+    padding-right:20px;
+    padding-top:10px;
+    padding-bottom:10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.button{
+    height:4vh;
+    margin-top:2vh;
+
+    color:white;
+    width:6vw;
+
+    font-size:20px;
+    border-radius: 10px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    cursor:pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.input{
+    height:3vh;
+    margin-top:2vh;
+    border:2px solid black;
+    padding-left:10px
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.parent-button{
+    width:25vw;
+    /* border:2px solid black; */
+    display:flex;
+    justify-content: space-between;
+    align-items:center
+}
+
+.button-add{
+    background-color: rgb(3, 107, 252);
+}
+
+.button-delete{
+    background-color: rgb(252, 3, 15);
 }
