@@ -1,9 +1,12 @@
 import './App.css';
 import {AddButton,DeleteButton} from './components/Button.jsx'
-import { NameInput,AgeInput,AddressInput,ID } from './components/Input.jsx';
+import { NameInput,AgeInput,TaskInput,ID } from './components/Input.jsx';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const todoData=useSelector((state)=>state.todoOperations);
+
   return (
    <div className="root">
     <h1> Todo's List</h1>
@@ -11,12 +14,16 @@ function App() {
         <ID/>
         <NameInput/>
         <AgeInput/>
-        <AddressInput/>
+        <TaskInput/>
 
-        <h2 style={{display:"flex",justifyContent:"center"}}>Hello</h2>
-        <h2 style={{display:"flex",justifyContent:"center"}}>World</h2>
-        <h2 style={{display:"flex",justifyContent:"center"}}>how</h2>
-        <h2 style={{display:"flex",justifyContent:"center"}}>are</h2>
+        {todoData.map((data)=>{
+          return (
+            <div>
+              <span>{data}</span>
+            </div>
+          )
+        })}
+
       </div>
 
       <div className="parent-button">
