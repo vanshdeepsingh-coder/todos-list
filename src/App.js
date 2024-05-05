@@ -21,7 +21,7 @@ function App() {
           return (
             dataArray.map((todos)=>{
               return (
-                <span>{todos}</span>
+                <span className="todo-data">{todos}</span>
               )
             })
             

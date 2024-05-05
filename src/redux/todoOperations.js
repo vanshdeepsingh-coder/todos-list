@@ -23,17 +23,10 @@ const initialState=[
 //   }
 
 function copyActionPayload(action){
-   let newPayload={
-    id:"",
-    name:"",
-    age:"",
-    task:""
-   }
-
-   newPayload.id=action.payload.id;
-   newPayload.name=action.payload.name;
-   newPayload.age=action.payload.age;
-   newPayload.task=action.payload.task
+   
+    let newPayload={
+    ...action.payload
+    }
    
    return newPayload
 }

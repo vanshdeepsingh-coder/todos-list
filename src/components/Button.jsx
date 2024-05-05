@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux"
  
  export function AddButton(){
     const dispatch=useDispatch();
-    // console.log(todoData)
+    console.log(todoData)
     return (
         <button className="button button-add" onClick={()=>dispatch(addTodo(todoData))}>Add</button>
     )
