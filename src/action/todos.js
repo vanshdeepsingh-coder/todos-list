@@ -1,7 +1,9 @@
 export function addTodo(data){
-    return {
-        type:"ADD-TODO",
-        payload:data
+    return (dispatch,getState)=>{
+        dispatch({
+            type:"ADD-TODO",
+            payload:data
+        })
     }
 }
 

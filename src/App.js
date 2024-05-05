@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 function App() {
   const todoData=useSelector((state)=>state.todoOperations);
-
+ 
   return (
    <div className="root">
     <h1> Todo's List</h1>
@@ -17,10 +17,14 @@ function App() {
         <TaskInput/>
 
         {todoData.map((data)=>{
+          const dataArray=[data.id,data.name,data.age,data.task];
           return (
-            <div>
-              <span>{data}</span>
-            </div>
+            dataArray.map((todos)=>{
+              return (
+                <span>{todos}</span>
+              )
+            })
+            
           )
         })}
 
