@@ -1,11 +1,11 @@
 import './App.css';
-import {AddButton,DeleteButton} from './components/Button.jsx'
+import {AddButton,DeleteButton,EditButton} from './components/Button.jsx'
 import { NameInput,AgeInput,TaskInput,ID } from './components/Input.jsx';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 function App() {
-  const todoData=useSelector((state)=>state.todoOperations);
+  let todoData=useSelector((state)=>state.todoOperations);
  
   return (
    <div className="root">
@@ -32,6 +32,7 @@ function App() {
 
       <div className="parent-button">
         <AddButton/>
+        <EditButton/>
         <DeleteButton/>
       </div>
      
