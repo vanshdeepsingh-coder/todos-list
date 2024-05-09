@@ -1,26 +1,8 @@
-const initialState=[
-    {
-        id:100,
-        name:"Vanshdeep Singh",
-        age:21,
-        task:"React"
-    }
-]
+const initialState=JSON.parse(localStorage.getItem("todoData"));
 
-// function deepCopy(obj) {
-//     if (typeof obj === 'object' && obj !== null) {
-//       if (Array.isArray(obj)) {
-//         return obj.map(deepCopy); // Deep copy each element in the array
-//       } else {
-//         return Object.keys(obj).reduce((newObj, key) => {
-//           newObj[key] = deepCopy(obj[key]); // Deep copy each property
-//           return newObj;
-//         }, {});
-//       }
-//     } else {
-//       return obj; // Primitive types are copied by value
-//     }
-//   }
+if(initialState==null){
+    localStorage.setItem("todoData",JSON.stringify([]))
+}
 
 function copyActionPayload(action){
    
@@ -34,18 +16,25 @@ function copyActionPayload(action){
 export default function todoOperations(state=initialState,action){
     switch(action.type){
         case 'ADD-TODO':
-            // const newState=state.slice();
-            // newState.splice(newState.length+1,0,action.payload)
             const newPayload=copyActionPayload(action)
-            return [...state,newPayload]
-
-            // const newState = deepCopy(state);
-            // newState.push(deepCopy(action.payload));
-            // return newState;
-            
-            // return newState
+            const addedData=[...state,newPayload];
+            localStorage.setItem("todoData",JSON.stringify(addedData))
+            return addedData
         case 'DELETE-TODO':
-            return state.filter((todos)=>todos.id!=action.payload);
+            const deletedData=state.filter((todos)=>todos.id!=action.payload)
+            localStorage.setItem("todoData",JSON.stringify(deletedData));
+            return deletedData;
+        case 'EDIT-TODO':
+            const newTodo=[...state]
+            newTodo.map((data)=>{
+                if(data.id==action.payload.id){
+                    data.name=action.payload.name;
+                    data.age=action.payload.age;
+                    data.task=action.payload.task
+                }
+            })
+            localStorage.setItem("todoData",JSON.stringify(newTodo));
+            return newTodo
         default:
             return state;
     } 

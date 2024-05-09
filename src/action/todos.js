@@ -13,3 +13,10 @@ export function deleteTodo(id){
         payload:id
     }
 }
+
+export function editTodo(data){
+    return {
+        type:"EDIT-TODO",
+        payload:data
+    }
+}
