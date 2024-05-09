@@ -1,13 +1,30 @@
-export function addTodo(data){
-    return (dispatch,getState)=>{
+export function addTodo(todo){
+
+    return async (dispatch,getState)=>{
+        const response=await fetch('http://localhost:3001/todos',{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(todo)
+        });
+
+        const newTodo=await response.json();
+
         dispatch({
             type:"ADD-TODO",
-            payload:data
+            payload:newTodo
         })
     }
 }
 
-export function deleteTodo(id){
+export async function deleteTodo(id){
+    const response=await fetch('http://localhost:3001/todos',{
+        method:'DELETE',
+        headers:{
+            'Content-Type':'application/json'
+        },
+    })
     return {
         type:"DELETE-TODO",
         payload:id

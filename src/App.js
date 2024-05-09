@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 
 function App() {
   let todoData=useSelector((state)=>state.todoOperations);
+  // console.log(todoData)
  
   return (
    <div className="root">

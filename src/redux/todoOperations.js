@@ -1,7 +1,15 @@
-const initialState=JSON.parse(localStorage.getItem("todoData"));
+fetch('http://localhost:3001/todos').then((response)=>{
+    return response.json();
+}).then((res)=>{
+    localStorage.setItem("todoData",JSON.stringify(res))
+})
 
-if(initialState==null){
-    localStorage.setItem("todoData",JSON.stringify([]))
+let initialState=[];
+
+const todoData=localStorage.getItem("todoData")
+
+if(todoData){
+    initialState=JSON.parse(todoData);
 }
 
 function copyActionPayload(action){
@@ -36,6 +44,6 @@ export default function todoOperations(state=initialState,action){
             localStorage.setItem("todoData",JSON.stringify(newTodo));
             return newTodo
         default:
-            return state;
+            return state
     } 
 }
