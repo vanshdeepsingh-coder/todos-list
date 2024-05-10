@@ -18,22 +18,40 @@ export function addTodo(todo){
     }
 }
 
-export async function deleteTodo(id){
-    const response=await fetch('http://localhost:3001/todos',{
-        method:'DELETE',
-        headers:{
-            'Content-Type':'application/json'
-        },
-    })
-    return {
-        type:"DELETE-TODO",
-        payload:id
+export function deleteTodo(id){
+
+    return async(dispatch,getState)=>{
+        await fetch(`http://localhost:3001/todos/${id}`,{
+            method:'DELETE',
+            headers:{
+                'Content-Type':'application/json'
+            }
+         })
+
+         dispatch({
+            type:"DELETE-TODO",
+            payload:id
+        })
     }
 }
 
 export function editTodo(data){
-    return {
-        type:"EDIT-TODO",
-        payload:data
+
+    return async(dispatch,getState)=>{
+
+        const response=await fetch(`http://localhost:3001/todos/${data.id}`,{
+            method:'PUT',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(data)
+        })
+
+        const result=await response.json()
+
+        dispatch({
+            type:"EDIT-TODO",
+            payload:result
+        })
     }
 }

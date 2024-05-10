@@ -16,7 +16,7 @@ export function NameInput(){
 
 export function ID(){
     return (
-        <input className="input" onChange={(e)=>todoData.id=parseInt(e.target.value)} placeholder="Enter your ID"></input>
+        <input className="input" onChange={(e)=>todoData.id=e.target.value} placeholder="Enter your ID"></input>
     )
 }
 

@@ -7,16 +7,16 @@
       "task": "React"
     },
     {
-      "id": 101,
+      "id": "101",
       "name": "Aman",
       "age": 22,
       "task": "DSA"
     },
     {
-      "id": 102,
-      "name": "Sudhir",
-      "age": 23,
-      "task": "Android"
+      "id": "102",
+      "name": "Michael",
+      "age": "54",
+      "task": "Singer"
     }
   ]
 }
