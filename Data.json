@@ -7,16 +7,10 @@
       "task": "React"
     },
     {
-      "id": "101",
+      "id": "102",
       "name": "Aman",
       "age": 22,
       "task": "DSA"
-    },
-    {
-      "id": "102",
-      "name": "Michael",
-      "age": "54",
-      "task": "Singer"
     }
   ]
 }

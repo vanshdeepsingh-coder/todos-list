@@ -1,8 +1,10 @@
-fetch('http://localhost:3001/todos').then((response)=>{
-    return response.json();
-}).then((res)=>{
-    localStorage.setItem("todoData",JSON.stringify(res))
-})
+async function fetchData(){
+    const response= await fetch('http://localhost:3001/todos');
+    const result=await response.json();
+    localStorage.setItem("todoData",JSON.stringify(result))
+}
+
+fetchData()
 
 let initialState=[];
 
@@ -23,6 +25,8 @@ function copyActionPayload(action){
 
 export default function todoOperations(state=initialState,action){
     switch(action.type){
+        case 'INITIAL-STATE':
+            return [...action.payload]
         case 'ADD-TODO':
             const newPayload=copyActionPayload(action)
             const addedData=[...state,newPayload];

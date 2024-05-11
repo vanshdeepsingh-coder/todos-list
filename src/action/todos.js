@@ -1,3 +1,15 @@
+export function getInitialState(){
+    return async(dispatch,getState)=>{
+        const response=await fetch('http://localhost:3001/todos')
+        const result=await response.json();
+        
+        dispatch({
+            type:"INITIAL-STATE",
+            payload:result
+        })
+    }
+}
+
 export function addTodo(todo){
 
     return async (dispatch,getState)=>{
