@@ -1,26 +1,34 @@
-async function fetchData(){
-    const response= await fetch('http://localhost:3001/todos');
-    const result=await response.json();
-    localStorage.setItem("todoData",JSON.stringify(result))
-}
-
-fetchData()
-
 let initialState=[];
 
-const todoData=localStorage.getItem("todoData")
-
-if(todoData){
-    initialState=JSON.parse(todoData);
+function convertToString(todo){
+    return JSON.stringify(todo)
 }
 
-function copyActionPayload(action){
-   
-    let newPayload={
-    ...action.payload
-    }
-   
-   return newPayload
+function convertToJSON(todo){
+    return JSON.parse(todo)
+}
+
+function setTodoInLocalStorage(todos){
+    localStorage.setItem("todoData",convertToString(todos))
+}
+
+function getTodoFromLocalStorage(){
+    const todos=localStorage.getItem("todoData")
+    return todos
+}
+
+async function fetchTodoData(){
+    const response= await fetch('http://localhost:3001/todos');
+    const result=await response.json();
+    setTodoInLocalStorage(result)
+}
+
+fetchTodoData()
+
+const todos=getTodoFromLocalStorage()
+
+if(todos){
+    initialState=convertToJSON(todos)
 }
 
 export default function todoOperations(state=initialState,action){
@@ -28,25 +36,25 @@ export default function todoOperations(state=initialState,action){
         case 'INITIAL-STATE':
             return [...action.payload]
         case 'ADD-TODO':
-            const newPayload=copyActionPayload(action)
+            const newPayload={...action.payload}
             const addedData=[...state,newPayload];
-            localStorage.setItem("todoData",JSON.stringify(addedData))
+            setTodoInLocalStorage(addedData)
             return addedData
         case 'DELETE-TODO':
             const deletedData=state.filter((todos)=>todos.id!=action.payload)
-            localStorage.setItem("todoData",JSON.stringify(deletedData));
+            setTodoInLocalStorage(deletedData)
             return deletedData;
         case 'EDIT-TODO':
-            const newTodo=[...state]
-            newTodo.map((data)=>{
+            const newTodoList=[...state]
+            newTodoList.map((data)=>{
                 if(data.id==action.payload.id){
                     data.name=action.payload.name;
                     data.age=action.payload.age;
                     data.task=action.payload.task
                 }
             })
-            localStorage.setItem("todoData",JSON.stringify(newTodo));
-            return newTodo
+            setTodoInLocalStorage(newTodoList)
+            return newTodoList
         default:
             return state
     } 

@@ -10,25 +10,29 @@ let todoData={
 
 export function NameInput(){
     return (
-        <input className="input" onChange={(e)=>todoData.name=e.target.value} placeholder="Enter your name"></input>
+        <input className="input" onChange={(e)=>todoData.name=e.target.value} 
+        placeholder="Enter your name"></input>
     )
 }
 
-export function ID(){
+export function IDInput(){
     return (
-        <input className="input" onChange={(e)=>todoData.id=e.target.value} placeholder="Enter your ID"></input>
+        <input className="input" onChange={(e)=>todoData.id=e.target.value} 
+        placeholder="Enter your ID"></input>
     )
 }
 
 export function AgeInput(){
     return (
-        <input className="input" onChange={(e)=>todoData.age=parseInt(e.target.value)} placeholder="Enter your age" ></input>
+        <input className="input" onChange={(e)=>todoData.age=parseInt(e.target.value)} 
+        placeholder="Enter your age" ></input>
     )
 }
 
 export function TaskInput(){
     return (
-        <input className="input" onChange={(e)=>todoData.task=e.target.value} placeholder="Enter your Task"></input>
+        <input className="input" onChange={(e)=>todoData.task=e.target.value} 
+        placeholder="Enter your Task"></input>
     )
 }
 

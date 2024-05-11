@@ -1,12 +1,41 @@
+function setInitialState(result){
+    return {
+        type:"INITIAL-STATE",
+        payload:result
+    }
+}
+
+function setAddTodo(addedTodo){
+    return {
+        type:"ADD-TODO",
+        payload:addedTodo
+    }
+}
+
+function setDeleteTodo(id){
+    return {
+        type:"DELETE-TODO",
+        payload:id
+    }
+}
+
+function setEditTodo(editedTodo){
+    return {
+        type:"EDIT-TODO",
+        payload:editedTodo
+    }
+}
+
+function convertToString(todo){
+    return JSON.stringify(todo)
+}
+
 export function getInitialState(){
     return async(dispatch,getState)=>{
         const response=await fetch('http://localhost:3001/todos')
         const result=await response.json();
         
-        dispatch({
-            type:"INITIAL-STATE",
-            payload:result
-        })
+        dispatch(setInitialState(result))
     }
 }
 
@@ -18,15 +47,11 @@ export function addTodo(todo){
             headers:{
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify(todo)
+            body:convertToString(todo)
         });
 
-        const newTodo=await response.json();
-
-        dispatch({
-            type:"ADD-TODO",
-            payload:newTodo
-        })
+        const addedTodo=await response.json();
+        dispatch(setAddTodo(addedTodo))
     }
 }
 
@@ -40,30 +65,23 @@ export function deleteTodo(id){
             }
          })
 
-         dispatch({
-            type:"DELETE-TODO",
-            payload:id
-        })
+         dispatch(setDeleteTodo(id))
     }
 }
 
-export function editTodo(data){
+export function editTodo(todo){
 
     return async(dispatch,getState)=>{
 
-        const response=await fetch(`http://localhost:3001/todos/${data.id}`,{
+        const response=await fetch(`http://localhost:3001/todos/${todo.id}`,{
             method:'PUT',
             headers:{
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify(data)
+            body:convertToString(todo)
         })
 
-        const result=await response.json()
-
-        dispatch({
-            type:"EDIT-TODO",
-            payload:result
-        })
+        const editedTodo=await response.json()
+        dispatch(setEditTodo(editedTodo))
     }
 }
