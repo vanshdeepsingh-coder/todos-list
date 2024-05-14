@@ -27,61 +27,77 @@ function setEditTodo(editedTodo){
 }
 
 function convertToString(todo){
+ 
     return JSON.stringify(todo)
 }
 
+async function callToAPI(method,body,API_URL,dispatch,actionToPerform,id={}){
+
+    let type={
+        method:method,
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:convertToString(body)
+    }
+
+    let result=[];
+
+    if(method==='GET'){
+        const response=await fetch(API_URL);
+        result=await response.json()
+    }
+    else{
+        const response=await fetch(API_URL,type);
+        result=await response.json()
+    }
+
+    if(method==='DELETE'){
+        result=id
+    }
+
+    dispatch(actionToPerform(result))
+}
+
 export function getInitialState(){
-    return async(dispatch,getState)=>{
-        const response=await fetch('http://localhost:3001/todos')
-        const result=await response.json();
-        
-        dispatch(setInitialState(result))
+    return (dispatch,getState)=>{
+        const method='GET';
+        const body={};
+        const API_URL='http://localhost:3001/todos';
+
+        callToAPI(method,body,API_URL,dispatch,setInitialState)
     }
 }
 
 export function addTodo(todo){
 
-    return async (dispatch,getState)=>{
-        const response=await fetch('http://localhost:3001/todos',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:convertToString(todo)
-        });
+    return (dispatch,getState)=>{
+        const method='POST';
+        const body=todo;
+        const API_URL='http://localhost:3001/todos';
 
-        const addedTodo=await response.json();
-        dispatch(setAddTodo(addedTodo))
+        callToAPI(method,body,API_URL,dispatch,setAddTodo)
     }
 }
 
 export function deleteTodo(id){
 
-    return async(dispatch,getState)=>{
-        await fetch(`http://localhost:3001/todos/${id}`,{
-            method:'DELETE',
-            headers:{
-                'Content-Type':'application/json'
-            }
-         })
+    return (dispatch,getState)=>{
+        const method='DELETE';
+        const body={};
+        const API_URL=`http://localhost:3001/todos/${id}`;
 
-         dispatch(setDeleteTodo(id))
+        callToAPI(method,body,API_URL,dispatch,setDeleteTodo,id)
     }
 }
 
 export function editTodo(todo){
 
-    return async(dispatch,getState)=>{
+    return (dispatch,getState)=>{
+        const method='PUT';
+        const body=todo;
+        const API_URL=`http://localhost:3001/todos/${todo.id}`;
 
-        const response=await fetch(`http://localhost:3001/todos/${todo.id}`,{
-            method:'PUT',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:convertToString(todo)
-        })
-
-        const editedTodo=await response.json()
-        dispatch(setEditTodo(editedTodo))
+        callToAPI(method,body,API_URL,dispatch,setEditTodo)
     }
 }

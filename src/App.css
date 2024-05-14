@@ -64,7 +64,7 @@
 }
 
 .button-add{
-    background-color: rgb(3, 107, 252);
+    background-color: rgb(66, 245, 75);
 }
 
 .button-delete{
@@ -72,5 +72,5 @@
 }
 
 .button-edit{
-    background-color: rgb(66, 245, 75);
+    background-color: rgb(3, 107, 252);
 }
